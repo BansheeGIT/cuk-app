@@ -1,98 +1,82 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// app/(tabs)/index.tsx
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const days = [
+    { d: "Sun", h: 18 },
+    { d: "Mon", h: 28 },
+    { d: "Tue", h: 22 },
+    { d: "Wed", h: 26 },
+    { d: "Thu", h: 30 },
+];
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Сосали!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Попробуйте</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    return (
+        <SafeAreaView className="flex-1 bg-surface-bg">
+            <ScrollView
+                className="flex-1 px-4 pt-4"
+                showsVerticalScrollIndicator={false}
+            >
+                {/* Header */}
+                <Text className="greeting">Good morning, Abdi 👋</Text>
+                <Text className="subtle">Here's what's happening today</Text>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+                {/* Today Schedule */}
+                <View className="card">
+                    <Text className="card-title">Today's Schedule</Text>
+                    <Text className="card-text">CS101 - Software Engineering</Text>
+                    <Text className="card-sub mt-0.5">10:00 AM – 11:50 AM</Text>
+                    <Text className="card-sub">Room A302</Text>
+                </View>
+
+                {/* Upcoming */}
+                <View className="card">
+                    <Text className="card-title">Upcoming</Text>
+                    <Text className="card-text">Linear Algebra – Tomorrow, 9 AM</Text>
+                </View>
+
+                {/* Attendance */}
+                <View className="card-attendance">
+                    <View className="card-attendance-inner">
+                        <Text className="attendance-title">Weekly Attendance Summary</Text>
+
+                        {/* прогресс 92% */}
+                        <View className="flex-row items-center justify-between mb-2">
+                            <Text className="text-sm text-slate-700">92%</Text>
+                        </View>
+                        <View className="progress">
+                            <View style={{ width: "92%" }} className="progress-fill" />
+                        </View>
+
+                        {/* мини-диаграмма */}
+                        <View className="bar-wrap">
+                            {days.map(({ d, h }) => (
+                                <View key={d} className="bar-col">
+                                    <View style={{ height: h }} className="bar-rect" />
+                                    <Text className="bar-label">{d}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                </View>
+
+                {/* News */}
+                <View className="news-card mb-6">
+                    <Text className="card-title">Latest from the Journal</Text>
+                    <View className="news-row">
+                        <View className="news-item">
+                            <Ionicons name="trophy-outline" size={28} color="#f59e0b" />
+                            <Text className="news-text">University Hackathon announced…</Text>
+                        </View>
+                        <View className="news-item">
+                            <Ionicons name="business-outline" size={28} color="#3b82f6" />
+                            <Text className="news-text">New library wing opens…</Text>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

@@ -1,17 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function ProfileCheck() {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Its a tab to check the profile</Text>
-            <Text style={styles.lower_text}>Hiiiiiii check test</Text>
-            <View style={styles.news_box}>
-                <Text>Это новостной боксик</Text>
-            </View>
-        </View>
-    );
-}
+
 
 const styles = StyleSheet.create({
     container: {

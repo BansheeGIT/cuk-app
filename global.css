@@ -1,3 +1,83 @@
+/* global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===== Дизайн-система под макет ===== */
+@layer base {
+    :root {
+        /* можно быстро корректировать тему под фигму */
+        --radius-card: 1rem;
+    }
+}
+
+@layer components {
+    /* Экран */
+    .screen {
+        @apply flex-1 bg-surface-bg px-4 pt-6;
+    }
+
+    /* Заголовки */
+    .greeting {
+        @apply text-2xl font-bold text-slate-900;
+    }
+    .subtle {
+        @apply text-sm text-slate-500 mt-1;
+    }
+
+    /* Карточка (базовая) */
+    .card {
+        @apply bg-surface-card rounded-xl2 p-4 shadow-soft mb-3;
+    }
+    .card-title {
+        @apply text-base font-semibold text-slate-900 mb-2;
+    }
+    .card-text {
+        @apply text-[15px] font-medium text-slate-700;
+    }
+    .card-sub {
+        @apply text-xs text-slate-500;
+    }
+
+    /* Карточка attendance (голубая плашка) */
+    .card-attendance {
+        @apply rounded-xl2 p-4 mb-3;
+        background: linear-gradient(180deg, theme(colors.brand.500) 0%, theme(colors.brand.400) 100%);
+    }
+    .card-attendance-inner {
+        @apply bg-surface-card rounded-xl2 p-3;
+    }
+    .attendance-title {
+        @apply text-sm font-semibold text-slate-900 mb-2;
+    }
+    .progress {
+        @apply w-full h-2 rounded-full bg-slate-200 overflow-hidden;
+    }
+    .progress-fill {
+        @apply h-full rounded-full bg-brand-500;
+    }
+
+    /* Бары мини-диаграммы */
+    .bar-wrap { @apply flex-row justify-between items-end mt-3; }
+    .bar-col   { @apply items-center; }
+    .bar-rect  { @apply w-4 rounded bg-emerald-500; }
+    .bar-label { @apply text-[10px] text-slate-600 mt-1; }
+
+    /* Новости */
+    .news-card { @apply card; }
+    .news-row  { @apply flex-row justify-between gap-3 mt-2; }
+    .news-item { @apply w-[48%] items-center bg-slate-100 rounded-xl2 p-3; }
+    .news-text { @apply text-xs text-center text-slate-700 mt-2; }
+
+    /* Нижняя навигация (если нужна статичная заглушка) */
+    .tabbar {
+        @apply flex-row justify-around items-center bg-surface-card py-2 mt-4 rounded-xl2 shadow-soft;
+    }
+    .tab-item { @apply items-center; }
+    .tab-label { @apply text-[11px] text-slate-600 mt-1; }
+}
+
+/* Утилиты поверх tailwind — чтобы меньше писать классы в jsx */
+@layer utilities {
+    .mb-safe { margin-bottom: env(safe-area-inset-bottom); }
+}
